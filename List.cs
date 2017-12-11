@@ -4,6 +4,7 @@ author: Daniel Lozano
 
 namespace MyDataStructures
 {
+
     public class MyList
     {
         public int[] numbers;
@@ -50,6 +51,26 @@ namespace MyDataStructures
             }
 
             this.len++;
+        }
+
+        public void Remove(int index)
+        {
+            int[] temp_numbers = numbers;
+            this.numbers = new int[this.len - 1];
+
+            int count = 0;
+            for(int i = 0; i < len - 1; i++)
+            {
+                if (i == index)
+                {
+                    count++;
+                    this.numbers[i] = temp_numbers[count];
+                }
+                else
+                    this.numbers[i] = temp_numbers[count];
+                count++;
+            }
+            len--;
         }
     }    
 }
