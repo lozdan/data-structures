@@ -4,9 +4,9 @@ author: Daniel Lozano
 
 namespace MyDataStructures
 {
-    public class MyList
+    public class MyList <T> where T: IComparable<T>
     {
-        private int[] numbers;
+        private T[] numbers;
         private int len;
 
         public int Length
@@ -17,7 +17,7 @@ namespace MyDataStructures
             }
         }
 
-        public int[] Numbers
+        public T[] Numbers
         {
             get
             {
@@ -27,15 +27,15 @@ namespace MyDataStructures
 
         public MyList()
         {
-            this.numbers = new int[0];
+            this.numbers = new T[0];
             this.len = 0;
         }
 
 
-        public void Add(int value)
+        public void Add(T value)
         {
-            int[] temp_numbers = numbers;
-            this.numbers = new int[this.len + 1];
+            T[] temp_numbers = numbers;
+            this.numbers = new T[this.len + 1];
 
             this.numbers[this.len] = value;
 
@@ -46,10 +46,10 @@ namespace MyDataStructures
             this.len++;
         }
 
-        public void Insert(int value, int index)
+        public void Insert(T value, int index)
         {
-            int[] temp_numbers = numbers;
-            this.numbers = new int[this.len + 1];
+            T[] temp_numbers = numbers;
+            this.numbers = new T[this.len + 1];
 
             int count = 0;
             for (int i = 0; i <= this.len; i++)
@@ -70,8 +70,8 @@ namespace MyDataStructures
 
         public void Remove(int index)
         {
-            int[] temp_numbers = numbers;
-            this.numbers = new int[this.len - 1];
+            T[] temp_numbers = numbers;
+            this.numbers = new T[this.len - 1];
 
             int count = 0;
             for (int i = 0; i < len - 1; i++)
@@ -88,21 +88,21 @@ namespace MyDataStructures
             len--;
         }
 
-        public bool Contains(int value)
+        public bool Contains(T value)
         {
-            bool exist = false;
-            for (int i = 0; i < this.len && exist is false; i++)
+            for (int i = 0; i < this.len; i++)
             {
-                if (this.numbers[i] == value)
-                    exist = true;
+                if (this.numbers[i].CompareTo(value) == 0)
+                    return true;
             }
-            return exist;
+            return false;
+
         }
 
-        public void AddRange(int[] sequence)
+        public void AddRange(T[] sequence)
         {
-            int[] temp_numbers = this.numbers;
-            this.numbers = new int[this.len + sequence.Length];
+            T[] temp_numbers = this.numbers;
+            this.numbers = new T[this.len + sequence.Length];
             this.len = this.len + sequence.Length;
 
             int j = 0;
@@ -118,23 +118,23 @@ namespace MyDataStructures
             }
         }
 
-        public void RemoveAll(int value)
+        public void RemoveAll(T value)
         {
             int repeat_numbers = 0;
-            for(int i = 0; i < this.len; i++)
+            for (int i = 0; i < this.len; i++)
             {
-                if (this.numbers[i] == value)
+                if (this.numbers[i].CompareTo(value) == 0)
                     repeat_numbers++;
             }
 
-            int[] temp_numbers = this.numbers;
+            T[] temp_numbers = this.numbers;
             this.len = this.len - repeat_numbers;
-            this.numbers = new int[this.len];
+            this.numbers = new T[this.len];
 
             int count = 0;
-            for(int i = 0; i < temp_numbers.Length; i++)
+            for (int i = 0; i < temp_numbers.Length; i++)
             {
-                if (temp_numbers[i] != value)
+                if (temp_numbers[i].CompareTo(value) != 0)
                 {
                     this.numbers[count] = temp_numbers[i];
                     count++;
