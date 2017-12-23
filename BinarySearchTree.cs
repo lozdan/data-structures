@@ -2,9 +2,11 @@
 author: Daniel Lozano
 */
 
+using System;
+
 namespace MyDataStructures
 {
-	public class BinarySearchTree
+    public class BinarySearchTree
     {
         private int value;
         private BinarySearchTree left, right;
@@ -13,7 +15,7 @@ namespace MyDataStructures
         {
             get
             {
-                return this.value;
+                return value;
             }
 
             set
@@ -26,12 +28,12 @@ namespace MyDataStructures
         {
             get
             {
-                return this.left;
+                return left;
             }
 
             set
             {
-                this.left = value;
+                left = value;
             }
         }
 
@@ -39,18 +41,26 @@ namespace MyDataStructures
         {
             get
             {
-                return this.right;
+                return right;
             }
 
             set
             {
-                this.right = value;
+                right = value;
             }
         }
 
-        public BinarySearchTree(int value)
+        public int Height
         {
-            this.value = value;
+            get
+            {
+                return HeightMeth(this);
+            }
+        }
+
+        public BinarySearchTree(int data)
+        {
+            value = data;
         }
 
         public void Add(int data)
@@ -69,6 +79,13 @@ namespace MyDataStructures
                 else
                     Right.Add(data);
             }  
+        }
+
+        public int HeightMeth(BinarySearchTree node)
+        {
+            if (node != null)
+                return Math.Max(HeightMeth(node.left), HeightMeth(node.right)) + 1;
+            return -1;
         }
     }
 }
